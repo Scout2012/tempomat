@@ -1,5 +1,5 @@
 {
-  "name": "tempomat",
+  "name": "tempomat-week",
   "version": "1.2.0-beta.0",
   "description": "Tempo.io cloud CLI",
   "main": "./dist/index.js",
@@ -9,6 +9,12 @@
     "lint": "eslint --fix --ext .ts ."
   },
   "author": "Szymon Kozak @szymonkozak",
+  "contributors": [
+    {
+      "name": "Jacob Powell",
+      "url": "https://github.com/Scout2012"
+    }
+  ],
   "license": "MIT",
   "homepage": "https://github.com/szymonkozak/tempomat",
   "bugs": "https://github.com/szymonkozak/tempomat/issues",
