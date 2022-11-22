@@ -46,6 +46,23 @@ export default {
         }
     },
 
+    async addBulkWorklog(input: Array<AddWorklogInput>): Promise<boolean> {
+        return execute(async () => {
+            const worklogRequests = []
+            cli.action.start('Logging time')
+            for (var worklog of input) {
+                worklogRequests.push(worklogs.addWorklog(worklog))
+            }
+            await Promise.all(worklogRequests)
+                .then(loggedArray => {
+                    for (const logged of loggedArray) {
+                        console.log(chalk.greenBright(`Successfully logged ${logged.duration} to ${logged.issueKey}, type ${chalk.bold(`tempo d ${logged.id}`)} to undo.`))
+                    }
+                })
+            cli.action.stop('Done.')
+        })
+    },
+
     async addWorklog(input: AddWorklogInput): Promise<boolean> {
         return execute(async () => {
             cli.action.start('Logging time')

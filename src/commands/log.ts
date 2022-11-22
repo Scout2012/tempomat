@@ -3,6 +3,7 @@ import { appName } from '../appName'
 import { trimIndent } from '../trimIndent'
 import tempo from '../tempo'
 import globalFlags from '../globalFlags'
+import time from '../time'
 
 export default class Log extends Command {
     static description = '[or l], add a new worklog using duration or interval (abc-123 15m or abc-123 11-12:30)'
@@ -19,6 +20,8 @@ export default class Log extends Command {
         `${appName} log abc-123 1h15m 2019-02-17`,
         `${appName} log abc-123 1h15m y`,
         `${appName} log abc-123 1h15m yesterday`,
+        `${appName} log abc-123 1h15m w`,
+        `${appName} log abc-123 1h15m week`,
         `${appName} log abc-123 1h15m -d "worklog description"`,
         `${appName} log abc-123 1h15m --start 10:30`,
         `${appName} log abc-123 1h15m -s 9`
@@ -66,13 +69,29 @@ export default class Log extends Command {
     async run() {
         const { args, flags } = this.parse(Log)
         globalFlags.debug = flags.debug
-        await tempo.addWorklog({
-            issueKeyOrAlias: args.issue_key_or_alias,
-            durationOrInterval: args.duration_or_interval,
-            when: args.when,
-            description: flags.description,
-            startTime: flags.start,
-            remainingEstimate: flags['remaining-estimate']
-        })
+        if (args.when === 'w' || args.when === 'week') {
+            const days = time.workWeek()
+            const workLogInput = []
+            for (const day of days) {
+                workLogInput.push({
+                    issueKeyOrAlias: args.issue_key_or_alias,
+                    durationOrInterval: args.duration_or_interval,
+                    when: day,
+                    description: flags.description,
+                    startTime: flags.start,
+                    remainingEstimate: flags['remaining-estimate']
+                })
+            }
+            await tempo.addBulkWorklog(workLogInput)
+        } else {
+            await tempo.addWorklog({
+                issueKeyOrAlias: args.issue_key_or_alias,
+                durationOrInterval: args.duration_or_interval,
+                when: args.when,
+                description: flags.description,
+                startTime: flags.start,
+                remainingEstimate: flags['remaining-estimate']
+            })
+        }
     }
 }

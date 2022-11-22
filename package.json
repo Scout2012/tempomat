@@ -5,7 +5,7 @@
   "main": "./dist/index.js",
   "scripts": {
     "build": "tsc -p .",
-    "test": "TZ=Europe/Warsaw jest",
+    "test": "jest",
     "lint": "eslint --fix --ext .ts ."
   },
   "author": "Szymon Kozak @szymonkozak",
@@ -63,6 +63,7 @@
     "@oclif/plugin-help": "^2.2.3",
     "@oclif/plugin-warn-if-update-available": "^1.7.0",
     "@types/lodash": "^4.14.149",
+    "@types/moment": "^2.13.0",
     "@types/node": "^13.7.1",
     "axios": "^0.21.1",
     "chalk": "^3.0.0",
@@ -71,7 +72,8 @@
     "cli-ux": "^5.4.5",
     "date-fns": "^2.9.0",
     "globby": "^10.0.2",
-    "lodash": "^4.17.15"
+    "lodash": "^4.17.15",
+    "moment": "^2.29.4"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1.22.2",
