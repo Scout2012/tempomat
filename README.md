@@ -129,6 +129,8 @@ EXAMPLES
   tempo log abc-123 1h15m 2019-02-17
   tempo log abc-123 1h15m y
   tempo log abc-123 1h15m yesterday
+  tempo log abc-123 1h15m w
+  tempo log abc-123 1h15m week
   tempo log abc-123 1h15m -d "worklog description"
   tempo log abc-123 1h15m --start 10:30
   tempo log abc-123 1h15m -s 9
@@ -146,6 +148,7 @@ ARGUMENTS
   WHEN  date to fetch worklogs, defaulted to today
         * date in YYYY-MM-DD format
         * y as yesterday
+        * w as week
 
 OPTIONS
   -h, --help     show CLI help
